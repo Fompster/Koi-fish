@@ -1,7 +1,10 @@
-import { generateBlob } from './blobGenerator.js';
+import { Crator } from './cratorClass.js';
 
-// get a blob SVG element
-const blob = generateBlob();
-// drop it into the desired container
 const scene = document.getElementById("scene");
+
+// viewBox w x h, target to append the <svg /> element to
+const crator = new Crator(200, 200, 0);
+const blob = crator.generateCrator();
+
+// drop it into the desired container
 scene.appendChild(blob); 

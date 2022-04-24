@@ -79,7 +79,7 @@ export function generateBlob(blobOpts){
     pathCoords += ("M 0 0 v " + window.innerHeight + "h" + window.innerWidth + " v -" + window.innerHeight + " h -" + window.innerWidth + "z");
     
     newPath.setAttributeNS(null, "d", pathCoords);
-    newPath.setAttributeNS(null, "style", `fill: ${color}; stroke: grey; stroke-width: 1px`);
+    newPath.setAttributeNS(null, "style", `fill: ${color}; stroke: white; stroke-width: 1px`);
 
     return newPath; 
   }
