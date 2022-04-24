@@ -5,7 +5,9 @@ function formatPoints(points, close) {
     points = [...points];
     // so that coords can be passed as objects or arrays
     if (!Array.isArray(points[0])) {
-      points = points.map(({ x, y }) => [round(x), round(y)]);
+        const width = window.innerWidth/2;
+        const height = window.innerHeight/2;
+        points = points.map(({ x, y }) => [round(x+width), round(y+height)]);
     }
   
     if (close) {

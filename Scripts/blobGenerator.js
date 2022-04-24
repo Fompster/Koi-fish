@@ -6,10 +6,10 @@ export function generateBlob(blobOpts){
 
     // group to be able to transform position
     const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    group.setAttribute("transform", "translate(200 200)");
+    // group.setAttribute("transform", "translate(200 200)");
 
     // create path
-    const numberOfPoints = 3//blobOpts && blobOpts.numberOfPoints || Math.floor(Math.random() * 12) + 3; 
+    const numberOfPoints = 5//blobOpts && blobOpts.numberOfPoints || Math.floor(Math.random() * 12) + 3; 
     const color = blobOpts && blobOpts.color || randomHexColor();
     const newPath = generatePath(numberOfPoints, color);
 
@@ -70,8 +70,16 @@ export function generateBlob(blobOpts){
 
     // draws a smooth curve through a set of x,y points
     let pathCoords = spline(coords, 1, true);
+
+    // for some reason get line inside shape if I dont do this
+    let indexC = pathCoords.lastIndexOf("C");
+    pathCoords = pathCoords.slice(0, indexC);
+
+    // draw rectangle
+    pathCoords += ("M 0 0 v " + window.innerHeight + "h" + window.innerWidth + " v -" + window.innerHeight + " h -" + window.innerWidth + "z");
+    
     newPath.setAttributeNS(null, "d", pathCoords);
-    newPath.setAttributeNS(null, "style", `fill: none; stroke: ${color}; stroke-width: 12px`);
+    newPath.setAttributeNS(null, "style", `fill: ${color}; stroke: grey; stroke-width: 1px`);
 
     return newPath; 
   }
@@ -79,8 +87,8 @@ export function generateBlob(blobOpts){
 
   // finds points on a circle
   function circlePoints(rad, radius){
-    var x = radius * Math.cos(rad);//cx + 
-    var y = radius * Math.sin(rad);//cy +
+    var x = radius * Math.cos(rad);
+    var y = radius * Math.sin(rad);
 
     return [x,y];
   }

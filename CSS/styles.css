@@ -1,10 +1,10 @@
-/* body{
-    height: 100vh;
-    background-color: rgb(84, 158, 210);
-} */
+body{
+    margin: 0;
+    /* height: 100vh; */
+    /* background-color: rgb(35, 114, 170); */
+}
 svg {
     position: absolute;
-    top: 20%;
     z-index: -10;
   }
 
