@@ -1,6 +1,6 @@
 import { spline } from './spline.js';
 
-export function generateBlob(blobOpts){
+export function generateBlob(color){
     // new svg
     const svg = generateSVG(); 
 
@@ -9,8 +9,7 @@ export function generateBlob(blobOpts){
     // group.setAttribute("transform", "translate(200 200)");
 
     // create path
-    const numberOfPoints = 5//blobOpts && blobOpts.numberOfPoints || Math.floor(Math.random() * 12) + 3; 
-    const color = blobOpts && blobOpts.color || randomHexColor();
+    const numberOfPoints = Math.floor(Math.random() * 12) + 3; 
     const newPath = generatePath(numberOfPoints, color);
 
     // assign
