@@ -1,12 +1,13 @@
 import { spline } from './spline.js';
 
-export function generateBlob(color, level){
+export function generateBlob(color, level, height, width){
     // new svg
-    const svg = generateSVG(); 
+    const svg = generateSVG(height, width); 
 
     // create path
-    const numberOfPoints = Math.floor(Math.random() * 12) + 3; 
-    const newPath = generatePath(numberOfPoints, color, level);
+    const numberOfPoints = Math.floor(Math.random() * (3*level)) + 3; 
+    const radius = 100 + level*110;
+    const newPath = generatePath(numberOfPoints, radius);
 
 
     newPath.setAttributeNS(null, "style", `fill: ${color};`);//stroke: white; stroke-width: 1px
@@ -19,7 +20,7 @@ export function generateBlob(color, level){
   }
   
   // empty svg
-  function generateSVG(){
+  function generateSVG(height, width){
     const svgEl = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svgEl.setAttribute('width', '100%');
     svgEl.setAttribute('height', '100%');
@@ -39,9 +40,8 @@ export function generateBlob(color, level){
     return Math.floor(val);
   }
   
-  function generatePath(numberOfPoints, color, level){
+  function generatePath(numberOfPoints, radius){
     const angleStep = (Math.PI * 2) / numberOfPoints;
-    const radius = 100 + level*100;
     var x, y;
     const coords = [];
 

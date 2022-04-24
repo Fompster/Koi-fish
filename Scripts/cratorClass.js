@@ -3,19 +3,25 @@ import { generateBlob } from './blobGenerator.js';
 const levelColors = ["#45A9D3", "#60C7E0", "#84D5E6", "#9DE0E9"];
 
 export class Crator {
-    constructor(width, height, level) {
+    constructor(width, height, maxLevel, target) {
       // viewBox width & height dimensions
       this.width = width;
       this.height = height;
-      this.color = levelColors[level];
-      this.level = level;
-  
-      // position within the viewBox (the center)
-      this.x = this.width / 2;
-      this.y = this.height / 2;
+      this.maxLevel = maxLevel;
+
+      this.target = document.getElementById(target);
     }
 
     generateCrator() {
-      return generateBlob(this.color, this.level);
+      const group = document.createElement("div");
+      group.setAttribute("class", "crator");
+      this.target.appendChild(group);
+
+      var startLevel = levelColors.length - this.maxLevel;
+
+      for (var i=startLevel; i < levelColors.length; i++) {
+        const blob = generateBlob(levelColors[i], i, this.height, this.width);
+        group.appendChild(blob);
+      }
     }
   }
