@@ -1,6 +1,6 @@
 import { generateBlob } from './blobGenerator.js';
 
-const levelColors = ["#45A9D3", "#53BADA", "#60C7E0", "#84D5E6", "#9DE0E9"];
+const levelColors = ["#45A9D3", "#60C7E0", "#84D5E6", "#9DE0E9"];
 
 export class Crator {
     constructor(width, height, level) {
@@ -8,6 +8,7 @@ export class Crator {
       this.width = width;
       this.height = height;
       this.color = levelColors[level];
+      this.level = level;
   
       // position within the viewBox (the center)
       this.x = this.width / 2;
@@ -15,7 +16,6 @@ export class Crator {
     }
 
     generateCrator() {
-
-      return generateBlob(this.color);
+      return generateBlob(this.color, this.level);
     }
   }

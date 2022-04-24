@@ -1,20 +1,18 @@
 import { spline } from './spline.js';
 
-export function generateBlob(color){
+export function generateBlob(color, level){
     // new svg
     const svg = generateSVG(); 
 
-    // group to be able to transform position
-    const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    // group.setAttribute("transform", "translate(200 200)");
-
     // create path
     const numberOfPoints = Math.floor(Math.random() * 12) + 3; 
-    const newPath = generatePath(numberOfPoints, color);
+    const newPath = generatePath(numberOfPoints, color, level);
+
+
+    newPath.setAttributeNS(null, "style", `fill: ${color};`);//stroke: white; stroke-width: 1px
 
     // assign
-    svg.appendChild(group);
-    group.appendChild(newPath);
+    svg.appendChild(newPath);
 
     // return the SVG
     return svg;
@@ -41,16 +39,9 @@ export function generateBlob(color){
     return Math.floor(val);
   }
   
-  function randomHexColor(){
-    /* courtesy of Paul Irish, https://www.paulirish.com/2009/random-hex-color-code-snippets/ */
-    var randomColor = "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
-    return randomColor;
-  }
-  
-  
-  function generatePath(numberOfPoints, color){
+  function generatePath(numberOfPoints, color, level){
     const angleStep = (Math.PI * 2) / numberOfPoints;
-    const radius = 100;
+    const radius = 100 + level*100;
     var x, y;
     const coords = [];
 
@@ -78,7 +69,6 @@ export function generateBlob(color){
     pathCoords += ("M 0 0 v " + window.innerHeight + "h" + window.innerWidth + " v -" + window.innerHeight + " h -" + window.innerWidth + "z");
     
     newPath.setAttributeNS(null, "d", pathCoords);
-    newPath.setAttributeNS(null, "style", `fill: ${color}; stroke: white; stroke-width: 1px`);
 
     return newPath; 
   }
