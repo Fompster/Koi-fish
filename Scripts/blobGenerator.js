@@ -31,16 +31,15 @@ export function generateBlob(blobOpts){
     return svgEl;
   }
   
-  function getRandomPoint(maxDim){
-    //generate a number between 1 and 100. 
-    const pos = Math.round(Math.random());
-    var point = Math.floor(Math.random() * maxDim); 
+  // choose a number within a range, integer (whole number) by default
+  function random(min, max, float = false) {
+    const val = Math.random() * (max - min) + min;
 
-    if (pos == 0) {
-      point *= -1;
+    if (float) {
+      return val;
     }
 
-    return point;
+    return Math.floor(val);
   }
   
   function randomHexColor(){
@@ -51,26 +50,26 @@ export function generateBlob(blobOpts){
   
   
   function generatePath(numberOfPoints, color){
-    //get viewport width and height
-    const pathWidth = document.documentElement.clientWidth;
-    const pathHeight = document.documentElement.clientHeight;
     const angleStep = (Math.PI * 2) / numberOfPoints;
     const radius = 100;
-    var angle = 0;
-    var controlX, controlY, x, y;
-     // keep track of our points
-    const points = [];
+    var x, y;
+    const coords = [];
 
     // create basic path
     const newPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
 
     for (let i = 1; i <= numberOfPoints; i++){
-      [x,y] = circlePoints(angle, radius);
-      points.push({ x, y });
-      angle += angleStep;
+      const pull = random(0.1, 1, true);
+      
+      [x,y] = circlePoints(angleStep*i, radius);
+
+      x *= pull;
+      y *= pull;
+      coords.push({ x, y });
     }
+
     // draws a smooth curve through a set of x,y points
-    let pathCoords = spline(points, 1, true);
+    let pathCoords = spline(coords, 1, true);
     newPath.setAttributeNS(null, "d", pathCoords);
     newPath.setAttributeNS(null, "style", `fill: none; stroke: ${color}; stroke-width: 12px`);
 
@@ -83,13 +82,6 @@ export function generateBlob(blobOpts){
     var x = radius * Math.cos(rad);//cx + 
     var y = radius * Math.sin(rad);//cy +
 
-    
-    x = round(x);
-    y = round(y);
-
     return [x,y];
   }
 
-  function round(x){
-    return Math.round(x * 100) / 100;
-  }

@@ -1,10 +1,11 @@
 // Made by george does code https://github.com/georgedoescode/splinejs/blob/main/spline.js
+import { round } from './maths.js';
 
 function formatPoints(points, close) {
     points = [...points];
     // so that coords can be passed as objects or arrays
     if (!Array.isArray(points[0])) {
-      points = points.map(({ x, y }) => [x, y]);
+      points = points.map(({ x, y }) => [round(x), round(y)]);
     }
   
     if (close) {
@@ -48,17 +49,17 @@ function formatPoints(points, close) {
       const x1 = points[i + 0];
       const y1 = points[i + 1];
   
-      const x2 = points[i + 2];
-      const y2 = points[i + 3];
+      const x2 = round(points[i + 2]);
+      const y2 = round(points[i + 3]);
   
       const x3 = i !== last ? points[i + 4] : x2;
       const y3 = i !== last ? points[i + 5] : y2;
   
-      const cp1x = x1 + ((x2 - x0) / 6) * tension;
-      const cp1y = y1 + ((y2 - y0) / 6) * tension;
+      const cp1x = round(x1 + ((x2 - x0) / 6) * tension);
+      const cp1y = round(y1 + ((y2 - y0) / 6) * tension);
   
-      const cp2x = x2 - ((x3 - x1) / 6) * tension;
-      const cp2y = y2 - ((y3 - y1) / 6) * tension;
+      const cp2x = round(x2 - ((x3 - x1) / 6) * tension);
+      const cp2y = round(y2 - ((y3 - y1) / 6) * tension);
   
       path += "C" + [cp1x, cp1y, cp2x, cp2y, x2, y2];
   
