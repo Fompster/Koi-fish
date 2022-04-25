@@ -7,6 +7,7 @@ function formatPoints(points, close) {
     if (!Array.isArray(points[0])) {
         const width = window.innerWidth/2;
         const height = window.innerHeight/2;
+        
         points = points.map(({ x, y }) => [round(x+width), round(y+height)]);
     }
   

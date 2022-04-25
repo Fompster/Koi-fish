@@ -3,12 +3,12 @@ import { spline } from './spline.js';
 export function generateBlob(color, level, height, width){
     // new svg
     const svg = generateSVG(height, width); 
+    svg.setAttribute("id", "blob");
 
     // create path
     const numberOfPoints = Math.floor(Math.random() * (3*level)) + 3; 
-    const radius = 100 + level*110;
+    const radius = 100 + level*110; //540 is the largest radius
     const newPath = generatePath(numberOfPoints, radius);
-
 
     newPath.setAttributeNS(null, "style", `fill: ${color};`);//stroke: white; stroke-width: 1px
 
@@ -45,9 +45,6 @@ export function generateBlob(color, level, height, width){
     var x, y;
     const coords = [];
 
-    // create basic path
-    const newPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-
     for (let i = 1; i <= numberOfPoints; i++){
       const pull = random(0.1, 1, true);
       
@@ -66,9 +63,16 @@ export function generateBlob(color, level, height, width){
     pathCoords = pathCoords.slice(0, indexC);
 
     // draw rectangle
-    pathCoords += ("M 0 0 v " + window.innerHeight + "h" + window.innerWidth + " v -" + window.innerHeight + " h -" + window.innerWidth + "z");
-    
-    newPath.setAttributeNS(null, "d", pathCoords);
+    return drawRectangle(pathCoords);
+  }
+
+
+  function drawRectangle(blobPaths) {
+    // create basic path
+    const newPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    blobPaths += ("M 0 0 v " + window.innerHeight + "h" + window.innerWidth + " v -" + window.innerHeight + " h -" + window.innerWidth + "z");
+
+    newPath.setAttributeNS(null, "d", blobPaths);
 
     return newPath; 
   }

@@ -1,11 +1,57 @@
+:root {
+    --level0TerrainColor: rgb(35, 114, 170);
+    --level4TerrainColor: #9DE0E9;
+    --sandTerrainColor: #E8E0D1;
+}
+
 body{
     margin: 0;
-    /* height: 100vh; */
-    background-color: rgb(35, 114, 170);
+    background-color: var(--level0TerrainColor);
+    overflow: scroll;
 }
-svg {
+
+#blob {
     position: absolute;
     filter: drop-shadow(2px 10px 10px rgb(47 0 64 / 0.35));
     z-index: -10;
+}
+
+#beach {
+    height: 90vh;
+    background-color: var(--sandTerrainColor);
+    position: relative;
+}
+
+#beach-waves {
+    height: 10vh;
+    min-height: 5vh;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    margin-top: 25px;
+}
+
+.wave {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    /* animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite; */
+    animation: wave 7s ease -1.25s infinite;
+
   }
 
+  @keyframes wave {
+    0%,
+    100% {
+      /* transform: translate3d(0, -25px, 0); */
+      height: 125px;
+      transform: translate(0,-25px);
+    }
+    50% {
+        height: 100px;
+        /* transform: translate(0,0px); */
+      transform: translate3d(0, 0px, 0);
+    }
+  }
+  
+  
