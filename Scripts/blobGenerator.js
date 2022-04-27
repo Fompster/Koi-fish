@@ -1,16 +1,17 @@
 import { spline } from './spline.js';
+import { random } from './maths.js';
 
-export function generateBlob(color, level, height, width){
+export function generateBlob(color, level, maxBlobRadius){
     // new svg
-    const svg = generateSVG(height, width); 
+    const svg = generateSVG(); 
     svg.setAttribute("id", "blob");
 
     // create path
     const numberOfPoints = Math.floor(Math.random() * (3*level)) + 3; 
-    const radius = 100 + level*110; //540 is the largest radius
+    const radius = maxBlobRadius / (4-level); 
     const newPath = generatePath(numberOfPoints, radius);
 
-    newPath.setAttributeNS(null, "style", `fill: ${color};`);//stroke: white; stroke-width: 1px
+    newPath.setAttributeNS(null, "style", `fill: ${color};`);
 
     // assign
     svg.appendChild(newPath);
@@ -20,24 +21,13 @@ export function generateBlob(color, level, height, width){
   }
   
   // empty svg
-  function generateSVG(height, width){
+  function generateSVG(){
     const svgEl = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svgEl.setAttribute('width', '100%');
     svgEl.setAttribute('height', '100%');
     svgEl.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
     
     return svgEl;
-  }
-  
-  // choose a number within a range, integer (whole number) by default
-  function random(min, max, float = false) {
-    const val = Math.random() * (max - min) + min;
-
-    if (float) {
-      return val;
-    }
-
-    return Math.floor(val);
   }
   
   function generatePath(numberOfPoints, radius){

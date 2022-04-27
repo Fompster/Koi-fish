@@ -42,14 +42,14 @@ body{
     min-height: 5vh;
     width: 100%;
     position: absolute;
-    bottom: 0px;
+    bottom: -2px;
     margin-top: 25px;
 }
 
 .wave {
     height: 100%;
     position: absolute;
-    bottom: 0;
+    bottom: -1px;
     animation: wave 7s ease -1.25s infinite;
     z-index: 1;
   }
